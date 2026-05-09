@@ -955,3 +955,872 @@ No cell has more than one entry, which requires:
 | 3. LL(1) table | See table in Problem 3 (no conflicts) |
 | 4. Parse trace | 29-step simulation (see Problem 4) |
 | 5. Modified grammar | ; enters FOLLOW(R) via chain F->S->R, causing conflict at [R, ;] |
+
+---
+---
+
+# ASSIGNMENT 10: LR(1) PARSING -- COMPLETE CONCEPT GUIDE & DETAILED SOLUTION
+
+---
+
+# PART I: BUILDING THE INTUITION -- EVERYTHING ABOUT LR PARSING
+
+---
+
+## 8. Why LR Parsing? -- Motivation
+
+### 8.1 The Limitations of LL (Top-Down) Parsing
+
+In Assignment 09 we built an LL(1) parser. LL parsing is intuitive: you start from the start symbol and try to *predict* which production to use by looking at the next input symbol. But LL parsing has serious limitations:
+
+- **Cannot handle left recursion.** A grammar like `E -> E + T` causes infinite loops in top-down parsing (the parser tries to expand E, sees E again, expands again, forever).
+- **Requires factoring.** Productions like `E -> T+E | T` share a common prefix, forcing you to rewrite the grammar.
+- **Limited class of grammars.** Many natural, intuitive grammars simply cannot be made LL(1).
+
+### 8.2 What LR Parsing Offers
+
+LR parsing works **bottom-up** instead of top-down:
+
+| Property | LL (Top-Down) | LR (Bottom-Up) |
+|----------|---------------|-----------------|
+| Direction | Start symbol -> string | String -> start symbol |
+| Derivation produced | Leftmost | Rightmost (in reverse) |
+| Left recursion | Cannot handle | Handles perfectly |
+| Grammar factoring | Often required | Rarely needed |
+| Power | Limited class of grammars | Much larger class |
+| Complexity | Easy to understand/build by hand | Hard to build by hand, but powerful tools exist |
+
+### 8.3 The Core Idea of Bottom-Up Parsing
+
+Instead of starting from S and trying to derive the input string, we start from the input string and try to *reduce* it back to S.
+
+**Example:** Grammar: `E -> E+T | T`, `T -> T?i | i`. Parse the string `i+i`:
+
+```
+i + i          (start with input)
+T + i          (reduce i to T by rule T -> i)
+E + i          (reduce T to E by rule E -> T)
+E + T          (reduce i to T by rule T -> i)
+E              (reduce E+T to E by rule E -> E+T)
+```
+
+At each step, we found a substring matching the right-hand side of a production and replaced it with the left-hand side. The trick is knowing **which** substring to reduce and **when**.
+
+### 8.4 The Name "LR"
+
+**LR** stands for:
+- **L** = reads input from **Left** to right
+- **R** = produces a **Rightmost** derivation (in reverse)
+
+The "(1)" in LR(1) means it uses **1 symbol of lookahead** to decide what to do.
+
+---
+
+## 9. The LR Parsing Machine -- Shift and Reduce
+
+### 9.1 The Two Actions
+
+An LR parser has a **stack** and reads input left to right. At each step, it performs one of two actions:
+
+**SHIFT:** Take the next input symbol and push it onto the stack. This is like saying "I haven't seen enough yet to make a decision."
+
+**REDUCE:** The top of the stack contains symbols matching the right-hand side of some production `A -> alpha`. Pop those symbols off, and push A. This is like saying "I recognize this pattern; it reduces to A."
+
+### 9.2 The Stack Contains Both Symbols and States
+
+In practice, the LR parser's stack alternates between **state numbers** and **grammar symbols**:
+
+```
+0  i  1  +  4  i  1
+```
+
+The state numbers encode where in the parsing process we are. The grammar symbols are there for our understanding (the states actually encode everything).
+
+### 9.3 How a Reduce Works in Detail
+
+When the parser reduces by a rule `A -> X1 X2 ... Xn` (where the RHS has n symbols):
+
+1. **Pop** 2n items from the stack (n grammar symbols and n state numbers).
+2. Let `s` be the state now on top of the stack.
+3. **Look up** the **goto entry** `Table[s, A]` to find the new state `s'`.
+4. **Push** the grammar symbol `A` and state `s'` onto the stack.
+
+### 9.4 Accept and Error
+
+- **ACCEPT:** When the parser is ready to reduce to the start symbol and the input is exhausted (only $ remains), the input is accepted.
+- **ERROR:** When no shift or reduce action is applicable, the input is rejected.
+
+### 9.5 A Concrete Walkthrough
+
+Grammar: `(a) S -> aaS`, `(b) S -> a`. Parse `aaaaa`:
+
+```
+Stack           Input        Action
+0               aaaaa$       shift a, goto 1
+0 a 1           aaaa$        shift a, goto 3
+0 a 1 a 3       aaa$         shift a, goto 1
+0 a 1 a 3 a 1   aa$          shift a, goto 3
+0 a 1 a 3 a 1 a 3   a$       shift a, goto 1
+0 a 1 a 3 a 1 a 3 a 1   $    reduce S -> a (pop 2 items; top=3; goto 4)
+0 a 1 a 3 a 1 a 3 S 4   $    reduce S -> aaS (pop 6 items; top=1; goto... wait)
+```
+
+The key point: the state numbers guide every decision. The **parsing table** tells us exactly which action to take.
+
+---
+
+## 10. LR(1) Items -- The Building Blocks of States
+
+### 10.1 What Is an LR(1) Item?
+
+An **LR(1) item** is a pair consisting of:
+
+1. A **core**: a production with a **dot (.)** placed somewhere in the right-hand side
+2. A **lookahead**: a terminal symbol (or $)
+
+Written as: `<A -> alpha . beta, t>`
+
+**The dot represents "how far we have parsed the right-hand side."**
+
+| Item | Meaning |
+|------|---------|
+| `<S -> . aaS, $>` | We haven't seen any part of `aaS` yet. If we successfully parse `aaS`, we expect `$` after. |
+| `<S -> a . aS, $>` | We've seen one `a`. We still need another `a` then an `S`. Expect `$` after. |
+| `<S -> aa . S, $>` | We've seen `aa`. We still need an `S`. Expect `$` after. |
+| `<S -> aaS . , $>` | We've seen all of `aaS`. We can now **reduce** (replace `aaS` with `S`), provided the next input is `$`. |
+| `<T -> i . , +>` | We've seen `i`. We can reduce to T, provided the next input is `+`. |
+
+### 10.2 The Dot Tells Us What to Do
+
+- **Dot before a terminal** (e.g., `<E -> E + . T, $>`): We need to see more input. The next step will be to **shift** or to handle the non-terminal after the dot.
+- **Dot before a non-terminal** (e.g., `<E -> E + . T, $>`): We need to recognize a T. This triggers **closure** (see below).
+- **Dot at the end** (e.g., `<E -> E + T . , $>`): We have matched the entire RHS. We can **reduce**, but only if the lookahead matches the next input symbol.
+
+### 10.3 The Lookahead's Role
+
+The lookahead answers: **"After I reduce, what terminal do I expect to see?"**
+
+For example, `<E -> T . , +>` means: "I have matched T. I can reduce T to E, but only if the next input symbol is `+`."
+
+This is critical for avoiding wrong reductions. Without the lookahead, we might reduce at the wrong time and get stuck.
+
+---
+
+## 11. Building States -- Closure and Goto
+
+### 11.1 The Augmented Grammar
+
+Before constructing states, we add a new start symbol S' with the production:
+
+```
+S' -> S
+```
+
+This gives us a clean starting point and a clear acceptance condition: when we reduce `S' -> S` with `$` as lookahead, we accept.
+
+### 11.2 Closure -- "What Else Must Be in This State?"
+
+A state is a **set of LR(1) items**. The **closure** operation ensures the state is complete.
+
+**The rule:** If a state contains `<A -> alpha . B beta, t>` (dot before a non-terminal B), then for every production `B -> gamma`, and for every terminal `u` in FIRST(beta t), add:
+
+```
+<B -> . gamma, u>
+```
+
+**Why?** If we're waiting for a B, we need to recognize whatever B can produce. The lookahead `u` is what comes after B in context: it's determined by `beta` (what comes after B in this production) and `t` (what comes after the whole A production).
+
+**Computing FIRST(beta t):**
+- If beta is non-empty and lambda is NOT in FIRST(beta): FIRST(beta t) = FIRST(beta)
+- If beta is empty: FIRST(beta t) = { t }
+- If beta can derive lambda: FIRST(beta t) = (FIRST(beta) \ {lambda}) union { t }
+
+### 11.3 Closure Example
+
+Consider the grammar `E -> E+T | T`, `T -> T?i | i`, with augmented production `S -> E`.
+
+Starting with `<S -> . E, $>`:
+
+1. Dot before E. E has productions `E -> E+T` and `E -> T`. What follows E? Nothing (beta is empty), so lookahead is `$`. Add:
+   - `<E -> . E+T, $>` and `<E -> . T, $>`
+
+2. Now `<E -> . E+T, $>` has dot before E. What follows E in `E+T`? The string `+T`. FIRST(+T) = { + }. But we already have E-items with lookahead $. Add:
+   - `<E -> . E+T, +>` and `<E -> . T, +>`
+
+3. Now `<E -> . T, $>` and `<E -> . T, +>` have dot before T. What follows T in these items? Nothing (T is the entire RHS), so lookahead is same: $ or +. T has productions `T -> T?i` and `T -> i`. Add:
+   - `<T -> . T?i, $>`, `<T -> . T?i, +>`, `<T -> . i, $>`, `<T -> . i, +>`
+
+4. Now `<T -> . T?i, $>` and `<T -> . T?i, +>` have dot before T. What follows T in `T?i`? The string `?i`. FIRST(?i) = { ? }. Add:
+   - `<T -> . T?i, ?>`, `<T -> . i, ?>`
+
+5. No more items to add. The closure is complete.
+
+**Using compact notation** (merging items that differ only in lookahead):
+
+```
+State 0: <S -> . E, $>
+         <E -> . E+T, $/+>
+         <E -> . T, $/+>
+         <T -> . T?i, $/+/?>
+         <T -> . i, $/+/?>
+```
+
+### 11.4 Goto -- "What State Do We Go to After Seeing a Symbol?"
+
+The **goto** function computes the next state:
+
+**GOTO(state, X)** = the closure of all items in `state` where the dot is immediately before X, with the dot moved past X.
+
+In other words: take every item `<A -> alpha . X beta, t>` in the current state, create `<A -> alpha X . beta, t>`, and then compute the closure of those items.
+
+**Example from State 0 above:**
+
+GOTO(State 0, i) = closure of `<T -> i . , $/+/?>` = `{ <T -> i . , $/+/?> }` (dot at end, no closure needed).
+
+GOTO(State 0, E) = closure of `{ <S -> E . , $>, <E -> E . +T, $/+> }`. Dot is before `+` (a terminal) or at the end; no non-terminals after any dot, so no additional items.
+
+GOTO(State 0, T) = closure of `{ <E -> T . , $/+>, <T -> T . ?i, $/+/?> }`. No non-terminals after any dot, so no additional items.
+
+### 11.5 The Complete State Machine
+
+Starting from State 0, we repeatedly compute GOTO for every symbol, creating new states until no new states appear. The result is a finite automaton whose states represent "positions in the parsing process."
+
+---
+
+## 12. From States to the Parsing Table
+
+### 12.1 Table Structure
+
+The parsing table has:
+- **Rows** = states (numbered 0, 1, 2, ...)
+- **Columns** = terminals (for **action** entries) + non-terminals (for **goto** entries) + $ (end marker)
+
+### 12.2 Filling the Table
+
+For each state `s` and each item in `s`:
+
+**Case 1: Dot before a terminal `a`** -- item is `<A -> alpha . a beta, t>`
+- GOTO(s, a) = some state s'. Put **shift s'** in Table[s, a]. (Often written just as the state number.)
+
+**Case 2: Dot before a non-terminal `B`** -- item is `<A -> alpha . B beta, t>`
+- GOTO(s, B) = some state s'. Put **goto s'** in Table[s, B]. (Also written as the state number.)
+
+**Case 3: Dot at the end** -- item is `<A -> alpha . , t>`
+- If A is NOT the augmented start symbol S': Put **reduce A -> alpha** in Table[s, t].
+- If A IS S' (item is `<S' -> S . , $>`): Put **accept** in Table[s, $].
+
+### 12.3 No Conflicts = Valid LR(1) Grammar
+
+If every cell has at most one entry, the grammar is LR(1). Conflicts come in two flavors:
+
+**Shift/Reduce conflict:** A state has both `<A -> alpha . , t>` (reduce on t) and `<B -> beta . t gamma, u>` (shift on t) for the same terminal t. The parser doesn't know whether to shift or reduce.
+
+**Reduce/Reduce conflict:** A state has both `<A -> alpha . , t>` and `<B -> beta . , t>` for the same lookahead t. The parser doesn't know which production to reduce by.
+
+**There is never a shift/shift conflict** because the automaton deterministically goes to one state per symbol.
+
+---
+
+## 13. LR Parsing and Rightmost Derivations
+
+### 13.1 The Connection
+
+Every LR parse produces a **rightmost derivation in reverse**. Each reduction step corresponds to one step of the rightmost derivation, read backwards.
+
+### 13.2 How to Extract the Rightmost Derivation
+
+At each step of the parse, the **grammar symbols on the stack** (ignoring state numbers) concatenated with the **remaining input** (ignoring $) form a **right sentential form**.
+
+The sequence of right sentential forms, read from the last (which is just `S` or `E`, the start symbol) back to the first (which is the original input string), gives the rightmost derivation.
+
+**Example:** Grammar `E -> E+T | T`, `T -> i`. Parse `i+i`:
+
+| Stack (symbols only) | Remaining Input | Right Sentential Form |
+|---------------------|-----------------|-----------------------|
+| (empty) | i+i | i+i |
+| i | +i | i+i |
+| T | +i | T+i (after reduce T->i) |
+| E | +i | E+i (after reduce E->T) |
+| E+ | i | E+i |
+| E+i | (empty) | E+i |
+| E+T | (empty) | E+T (after reduce T->i) |
+| E | (empty) | E (after reduce E->E+T) |
+
+Right sentential forms at reductions: `i+i`, `T+i`, `E+i`, `E+i`, `E+T`, `E`.
+
+Rightmost derivation (reading reduce-steps in reverse):
+```
+E => E+T => E+i => T+i => i+i
+```
+
+Verify: always expanding the rightmost non-terminal:
+- E => E+T (expand E using E->E+T)
+- E+T => E+i (expand T, the rightmost non-terminal, using T->i)
+- E+i => T+i (expand E, now the rightmost non-terminal, using E->T)
+- T+i => i+i (expand T using T->i)
+
+### 13.3 Why "Rightmost"?
+
+Bottom-up parsing naturally constructs a rightmost derivation because it always reduces the **rightmost** reducible substring (called the **handle**). The handle is always at the top of the stack.
+
+---
+
+## 14. Understanding the `?` Operator and Precedence/Associativity
+
+### 14.1 The Grammar for Assignment 10
+
+```
+(a) E -> E + T
+(b) E -> T
+(c) T -> T ? i
+(d) T -> i
+```
+
+This is the standard "expression grammar" pattern, but with `?` playing the role that `*` normally plays:
+
+| Operator | Precedence | Associativity | Encoded by |
+|----------|-----------|---------------|------------|
+| `+` | Lower | Left (via `E -> E + T`) | E-level rules |
+| `?` | Higher | Left (via `T -> T ? i`) | T-level rules |
+
+### 14.2 Why Left Recursion Gives Left Associativity
+
+`E -> E + T` is left-recursive: E appears on the leftmost position of the RHS. This forces `a+b+c` to be parsed as `(a+b)+c`:
+
+```
+      E
+    / | \
+   E  +  T
+  /|\     |
+ E + T    i(c)
+ |   |
+ T   i(b)
+ |
+ i(a)
+```
+
+The leftmost `+` is deeper in the tree, so it groups first.
+
+### 14.3 Why T-Level Binds Tighter
+
+In `E -> E + T`, the operands of `+` are E (left) and T (right). But T itself can contain `?` operations via `T -> T ? i`. So `?` "happens inside" T before T participates in `+`. This is exactly what "higher precedence" means.
+
+Example: `w + z ? y + x` parses as `(w + (z ? y)) + x`:
+
+```
+          E
+        / | \
+       E  +  T
+      /|\     |
+     E + T    i(x)
+     |  /|\
+     T T ? i(y)
+     |  |
+   i(w) i(z)
+```
+
+---
+
+## 15. Compact Notation for LR(1) Items
+
+### 15.1 Merging Lookaheads
+
+When multiple items share the same core but differ in lookahead, we merge them:
+
+Instead of writing:
+```
+<T -> . i, $>
+<T -> . i, +>
+<T -> . i, ?>
+```
+
+We write:
+```
+<T -> . i, $/+/?>
+```
+
+This is purely a notational convenience. Each merged item represents multiple LR(1) items.
+
+### 15.2 State Listing Convention
+
+A state is written as:
+```
+State k: <item1>, <item2>, ...
+```
+
+where items with the same core are merged.
+
+---
+
+# PART II: SOLVING ASSIGNMENT 10 -- COMPLETE DETAILED SOLUTION
+
+---
+
+## The Grammar
+
+```
+(a) E -> E + T
+(b) E -> T
+(c) T -> T ? i
+(d) T -> i
+```
+
+**Augmented grammar** (add new start symbol S):
+
+```
+(0) S -> E
+(a) E -> E + T
+(b) E -> T
+(c) T -> T ? i
+(d) T -> i
+```
+
+**Variables:** S, E, T
+**Terminals:** +, ?, i
+**Start symbol:** S (augmented)
+
+---
+
+## Problem 1 (18 points): Construct the LR(1) Parsing Table
+
+### Step 1: Build All States
+
+#### State 0 (Initial State)
+
+Start with the LR(1) item:
+
+```
+<S -> . E, $>
+```
+
+**Closure:**
+
+1. Dot before E. Productions for E: `E -> E+T` and `E -> T`. What follows E in `S -> .E`? Nothing (beta is empty), so the lookahead carries through: $.
+   - Add: `<E -> . E+T, $>` and `<E -> . T, $>`
+
+2. Item `<E -> . E+T, $>` has dot before E. What follows E in `E+T`? The string `+T`. FIRST(+T) = { + }. So:
+   - Add: `<E -> . E+T, +>` and `<E -> . T, +>`
+
+3. Items `<E -> . T, $>` and `<E -> . T, +>` have dot before T. What follows T in these items? Nothing (T is the full RHS), so lookaheads carry through: $ and +. Productions for T: `T -> T?i` and `T -> i`.
+   - Add: `<T -> . T?i, $>`, `<T -> . T?i, +>`, `<T -> . i, $>`, `<T -> . i, +>`
+
+4. Items `<T -> . T?i, $>` and `<T -> . T?i, +>` have dot before T. What follows T in `T?i`? The string `?i`. FIRST(?i) = { ? }. So:
+   - Add: `<T -> . T?i, ?>` and `<T -> . i, ?>`
+
+5. New items `<T -> . T?i, ?>` has dot before T. We'd generate `<T -> . T?i, ?>` and `<T -> . i, ?>` -- both already present.
+
+6. All E-items with dot before E would generate items already present. **Closure complete.**
+
+> **State 0:**
+> ```
+> <S -> . E,     $>
+> <E -> . E+T,   $/+>
+> <E -> . T,     $/+>
+> <T -> . T?i,   $/+/?>
+> <T -> . i,     $/+/?>
+> ```
+
+**Transitions from State 0:**
+
+- On **i**: shift dot in `<T -> . i, $/+/?>` --> GOTO(0, i) = **State 1**
+- On **E**: shift dot in `<S -> . E, $>`, `<E -> . E+T, $/+>` --> GOTO(0, E) = **State 2**
+- On **T**: shift dot in `<E -> . T, $/+>`, `<T -> . T?i, $/+/?>` --> GOTO(0, T) = **State 3**
+
+---
+
+#### State 1
+
+From State 0, shifting dot past `i`:
+
+```
+<T -> i . ,   $/+/?>
+```
+
+Dot is at the end. No closure needed.
+
+> **State 1:**
+> ```
+> <T -> i . ,   $/+/?>
+> ```
+
+This is a **reduce state**: reduce by rule (d) `T -> i` on lookaheads $, +, or ?.
+
+No transitions out (dot at end in all items).
+
+---
+
+#### State 2
+
+From State 0, shifting dot past `E`:
+
+```
+<S -> E . ,    $>
+<E -> E . +T,  $/+>
+```
+
+No dot before a non-terminal. No closure needed.
+
+> **State 2:**
+> ```
+> <S -> E . ,    $>
+> <E -> E . +T,  $/+>
+> ```
+
+**Transitions from State 2:**
+
+- On **$**: accept (from `<S -> E . , $>`)
+- On **+**: shift dot in `<E -> E . +T, $/+>` --> GOTO(2, +) = **State 4**
+
+---
+
+#### State 3
+
+From State 0, shifting dot past `T`:
+
+```
+<E -> T . ,    $/+>
+<T -> T . ?i,  $/+/?>
+```
+
+No dot before a non-terminal. No closure needed.
+
+> **State 3:**
+> ```
+> <E -> T . ,    $/+>
+> <T -> T . ?i,  $/+/?>
+> ```
+
+**Transitions from State 3:**
+
+- On **$**: reduce by rule (b) `E -> T` (from `<E -> T . , $>`)
+- On **+**: reduce by rule (b) `E -> T` (from `<E -> T . , +>`)
+- On **?**: shift dot in `<T -> T . ?i, $/+/?>` --> GOTO(3, ?) = **State 6**
+
+**Conflict check on $:** Only reduce (b). On +: only reduce (b). On ?: only shift. No conflicts.
+
+---
+
+#### State 4
+
+From State 2, shifting dot past `+`:
+
+```
+<E -> E+ . T,  $/+>
+```
+
+**Closure:** Dot before T. What follows T in `E+T`? Nothing, so lookaheads carry: $ and +. Productions for T:
+
+- Add: `<T -> . T?i, $/+>`, `<T -> . i, $/+>`
+
+Dot before T in `<T -> . T?i, $/+>`. What follows T in `T?i`? The string `?i`. FIRST(?i) = { ? }:
+
+- Add: `<T -> . T?i, ?>`, `<T -> . i, ?>`
+
+No more items needed.
+
+> **State 4:**
+> ```
+> <E -> E+ . T,  $/+>
+> <T -> . T?i,   $/+/?>
+> <T -> . i,     $/+/?>
+> ```
+
+**Transitions from State 4:**
+
+- On **i**: shift dot in `<T -> . i, $/+/?>` --> gives `<T -> i . , $/+/?>` = **State 1** (same as before!)
+- On **T**: shift dot in `<E -> E+ . T, $/+>` and `<T -> . T?i, $/+/?>` --> GOTO(4, T) = **State 5**
+
+---
+
+#### State 5
+
+From State 4, shifting dot past `T`:
+
+```
+<E -> E+T . ,  $/+>
+<T -> T . ?i,  $/+/?>
+```
+
+No dot before a non-terminal. No closure needed.
+
+> **State 5:**
+> ```
+> <E -> E+T . ,  $/+>
+> <T -> T . ?i,  $/+/?>
+> ```
+
+**Transitions from State 5:**
+
+- On **$**: reduce by rule (a) `E -> E+T` (from `<E -> E+T . , $>`)
+- On **+**: reduce by rule (a) `E -> E+T` (from `<E -> E+T . , +>`)
+- On **?**: shift dot in `<T -> T . ?i, $/+/?>` --> GOTO(5, ?) = **State 6** (see below)
+
+**Conflict check:** On $ and +: only reduce (a). On ?: only shift. No conflicts.
+
+---
+
+#### State 6
+
+From State 3 (or State 5), shifting dot past `?`:
+
+From State 3: `<T -> T? . i, $/+/?>` (from `<T -> T . ?i, $/+/?>`)
+From State 5: `<T -> T? . i, $/+/?>` (from `<T -> T . ?i, $/+/?>`)
+
+Both give exactly the same set of items, so there is a single State 6.
+
+```
+<T -> T? . i,  $/+/?>
+```
+
+No closure needed (dot before terminal `i`).
+
+> **State 6:**
+> ```
+> <T -> T? . i,  $/+/?>
+> ```
+
+**Transitions from State 6:**
+
+- On **i**: shift dot --> GOTO(6, i) = **State 7**
+
+---
+
+#### State 7
+
+From State 6, shifting dot past `i`:
+
+```
+<T -> T?i . ,  $/+/?>
+```
+
+Dot at the end. No closure needed.
+
+> **State 7:**
+> ```
+> <T -> T?i . ,  $/+/?>
+> ```
+
+This is a **reduce state**: reduce by rule (c) `T -> T?i` on lookaheads $, +, or ?.
+
+No transitions out.
+
+---
+
+#### No More States
+
+Let us verify we haven't missed any transitions:
+
+| State | Possible transitions | Targets |
+|-------|---------------------|---------|
+| 0 | i -> 1, E -> 2, T -> 3 | States 1, 2, 3 |
+| 1 | (none -- all dots at end) | -- |
+| 2 | + -> 4 | State 4 |
+| 3 | ? -> 6 | State 6 |
+| 4 | i -> 1, T -> 5 | States 1, 5 |
+| 5 | ? -> 6 | State 6 |
+| 6 | i -> 7 | State 7 |
+| 7 | (none -- all dots at end) | -- |
+
+All target states are already constructed. **8 states total (0 through 7). Construction complete.**
+
+---
+
+### Step 2: The Complete LR(1) Parsing Table
+
+Using the rules from Section 12.2:
+
+- Shift entries: dot before a terminal -> shift to the target state
+- Goto entries: dot before a non-terminal -> goto the target state
+- Reduce entries: dot at end -> reduce on the lookahead symbol(s)
+- Accept: `<S -> E . , $>` -> accept on $
+
+| State | + | ? | i | E | T | $ |
+|-------|---|---|---|---|---|---|
+| **0** | | | 1 | 2 | 3 | |
+| **1** | Rd | Rd | | | | Rd |
+| **2** | 4 | | | | | **accept** |
+| **3** | Rb | 6 | | | | Rb |
+| **4** | | | 1 | | 5 | |
+| **5** | Ra | 6 | | | | Ra |
+| **6** | | | 7 | | | |
+| **7** | Rc | Rc | | | | Rc |
+
+Where:
+- **Ra** = reduce by rule (a): `E -> E+T` (pop 3 pairs)
+- **Rb** = reduce by rule (b): `E -> T` (pop 1 pair)
+- **Rc** = reduce by rule (c): `T -> T?i` (pop 3 pairs)
+- **Rd** = reduce by rule (d): `T -> i` (pop 1 pair)
+
+### Step 3: Verify No Conflicts
+
+| State | Check |
+|-------|-------|
+| 0 | Only shifts/gotos, no reduces. No conflict. |
+| 1 | Only reduces (Rd) on +, ?, $. No shifts on those symbols. No conflict. |
+| 2 | Shift on +, accept on $. Different symbols. No conflict. |
+| 3 | Reduce (Rb) on + and $. Shift on ?. All different actions on different symbols. No conflict. |
+| 4 | Only shifts/gotos. No conflict. |
+| 5 | Reduce (Ra) on + and $. Shift on ?. All different actions on different symbols. No conflict. |
+| 6 | Only shift on i. No conflict. |
+| 7 | Only reduces (Rc) on +, ?, $. No conflict. |
+
+**The grammar is LR(1). No shift/reduce or reduce/reduce conflicts exist.**
+
+Note the critical observation in States 3 and 5: on `?` we **shift** (not reduce), even though reduce items are also present in those states. There is no conflict because the reduce items have lookaheads `$/+` (not `?`), while the shift is on `?`. This separation is exactly how the grammar encodes that `?` binds tighter than `+` and is left-associative.
+
+---
+
+## Problem 2 (12 points): Parse Two Strings
+
+### Parsing String 1: `x ? y ? z`
+
+The terminals in the input are: `i ? i ? i` (using `i` for each identifier).
+
+| Step | Stack | Input | Action |
+|------|-------|-------|--------|
+| 1 | `0` | `i ? i ? i $` | Table[0, i] = 1. **Shift** i, goto State 1. |
+| 2 | `0 i 1` | `? i ? i $` | Table[1, ?] = Rd. **Reduce** T -> i. Pop 1 pair. Top = 0. Table[0, T] = 3. Push T 3. |
+| 3 | `0 T 3` | `? i ? i $` | Table[3, ?] = 6. **Shift** ?, goto State 6. |
+| 4 | `0 T 3 ? 6` | `i ? i $` | Table[6, i] = 7. **Shift** i, goto State 7. |
+| 5 | `0 T 3 ? 6 i 7` | `? i $` | Table[7, ?] = Rc. **Reduce** T -> T?i. Pop 3 pairs. Top = 0. Table[0, T] = 3. Push T 3. |
+| 6 | `0 T 3` | `? i $` | Table[3, ?] = 6. **Shift** ?, goto State 6. |
+| 7 | `0 T 3 ? 6` | `i $` | Table[6, i] = 7. **Shift** i, goto State 7. |
+| 8 | `0 T 3 ? 6 i 7` | `$` | Table[7, $] = Rc. **Reduce** T -> T?i. Pop 3 pairs. Top = 0. Table[0, T] = 3. Push T 3. |
+| 9 | `0 T 3` | `$` | Table[3, $] = Rb. **Reduce** E -> T. Pop 1 pair. Top = 0. Table[0, E] = 2. Push E 2. |
+| 10 | `0 E 2` | `$` | Table[2, $] = accept. **ACCEPT!** |
+
+### Rightmost Derivation for `x ? y ? z`
+
+Extract right sentential forms at each reduction step (stack symbols + remaining input):
+
+| Reduction | Stack symbols | Remaining input | Right sentential form |
+|-----------|---------------|-----------------|-----------------------|
+| Step 2: T -> i | Before: `i` | `?i?i` | **i ? i ? i** |
+| Step 5: T -> T?i | Before: `T?i` | `?i` | **T ? i ? i** |
+| Step 8: T -> T?i | Before: `T?i` | (empty) | **T ? i** |
+| Step 9: E -> T | Before: `T` | (empty) | **T** |
+| Accept | `E` | (empty) | **E** |
+
+**Rightmost derivation** (reading from E back to the original string):
+
+```
+E  =>  T  =>  T ? i  =>  T ? i ? i  =>  i ? i ? i
+```
+
+Verification (always expanding the rightmost non-terminal):
+
+| Step | Sentential form | Rule applied | Non-terminal expanded |
+|------|----------------|--------------|----------------------|
+| 0 | E | | |
+| 1 | T | E -> T | E (only non-terminal) |
+| 2 | T ? i | T -> T?i | T (only non-terminal) |
+| 3 | T ? i ? i | T -> T?i | T (rightmost is T, the only one) |
+| 4 | i ? i ? i | T -> i | T (only non-terminal) |
+
+This corresponds to `(x ? y) ? z` -- **left associative**, as expected.
+
+---
+
+### Parsing String 2: `w + z ? y + x`
+
+The terminals in the input are: `i + i ? i + i` (using `i` for each identifier).
+
+| Step | Stack | Input | Action |
+|------|-------|-------|--------|
+| 1 | `0` | `i + i ? i + i $` | Table[0, i] = 1. **Shift** i, goto 1. |
+| 2 | `0 i 1` | `+ i ? i + i $` | Table[1, +] = Rd. **Reduce** T -> i. Pop 1 pair. Top = 0. Table[0, T] = 3. Push T 3. |
+| 3 | `0 T 3` | `+ i ? i + i $` | Table[3, +] = Rb. **Reduce** E -> T. Pop 1 pair. Top = 0. Table[0, E] = 2. Push E 2. |
+| 4 | `0 E 2` | `+ i ? i + i $` | Table[2, +] = 4. **Shift** +, goto 4. |
+| 5 | `0 E 2 + 4` | `i ? i + i $` | Table[4, i] = 1. **Shift** i, goto 1. |
+| 6 | `0 E 2 + 4 i 1` | `? i + i $` | Table[1, ?] = Rd. **Reduce** T -> i. Pop 1 pair. Top = 4. Table[4, T] = 5. Push T 5. |
+| 7 | `0 E 2 + 4 T 5` | `? i + i $` | Table[5, ?] = 6. **Shift** ?, goto 6. |
+| 8 | `0 E 2 + 4 T 5 ? 6` | `i + i $` | Table[6, i] = 7. **Shift** i, goto 7. |
+| 9 | `0 E 2 + 4 T 5 ? 6 i 7` | `+ i $` | Table[7, +] = Rc. **Reduce** T -> T?i. Pop 3 pairs. Top = 4. Table[4, T] = 5. Push T 5. |
+| 10 | `0 E 2 + 4 T 5` | `+ i $` | Table[5, +] = Ra. **Reduce** E -> E+T. Pop 3 pairs. Top = 0. Table[0, E] = 2. Push E 2. |
+| 11 | `0 E 2` | `+ i $` | Table[2, +] = 4. **Shift** +, goto 4. |
+| 12 | `0 E 2 + 4` | `i $` | Table[4, i] = 1. **Shift** i, goto 1. |
+| 13 | `0 E 2 + 4 i 1` | `$` | Table[1, $] = Rd. **Reduce** T -> i. Pop 1 pair. Top = 4. Table[4, T] = 5. Push T 5. |
+| 14 | `0 E 2 + 4 T 5` | `$` | Table[5, $] = Ra. **Reduce** E -> E+T. Pop 3 pairs. Top = 0. Table[0, E] = 2. Push E 2. |
+| 15 | `0 E 2` | `$` | Table[2, $] = accept. **ACCEPT!** |
+
+### Rightmost Derivation for `w + z ? y + x`
+
+Extract right sentential forms at each reduction step:
+
+| Reduction | Stack symbols | Remaining input | Right sentential form |
+|-----------|---------------|-----------------|-----------------------|
+| Step 2: T -> i | `i` | `+i?i+i` | **i + i ? i + i** |
+| Step 3: E -> T | `T` | `+i?i+i` | **T + i ? i + i** |
+| Step 6: T -> i | `E+i` | `?i+i` | **E + i ? i + i** |
+| Step 9: T -> T?i | `E+T?i` | `+i` | **E + T ? i + i** |
+| Step 10: E -> E+T | `E+T` | `+i` | **E + T + i** |
+| Step 13: T -> i | `E+i` | (empty) | **E + i** |
+| Step 14: E -> E+T | `E+T` | (empty) | **E + T** |
+| Accept | `E` | (empty) | **E** |
+
+**Rightmost derivation** (reading from E back to the original string):
+
+```
+E  =>  E + T  =>  E + i  =>  E + T + i  =>  E + T ? i + i  =>  E + i ? i + i  =>  T + i ? i + i  =>  i + i ? i + i
+```
+
+Verification (always expanding the rightmost non-terminal):
+
+| Step | Sentential form | Rule | Rightmost non-terminal expanded |
+|------|----------------|------|--------------------------------|
+| 0 | E | | |
+| 1 | E + T | E -> E+T | E |
+| 2 | E + i | T -> i | T (rightmost) |
+| 3 | E + T + i | E -> E+T | E (rightmost = only) |
+| 4 | E + T ? i + i | T -> T?i | T (rightmost between E and T: T is rightmost) |
+| 5 | E + i ? i + i | T -> i | T (rightmost) |
+| 6 | T + i ? i + i | E -> T | E (only non-terminal) |
+| 7 | i + i ? i + i | T -> i | T (only non-terminal) |
+
+This corresponds to the parse tree for `(w + (z ? y)) + x`:
+- `?` binds tighter than `+` (z?y is grouped first)
+- `+` is left-associative ((w + ...) + x)
+
+Both precedence and associativity are correctly handled.
+
+---
+
+# PART III: QUICK REFERENCE FOR ASSIGNMENT 10
+
+## All States Summary
+
+| State | LR(1) Items |
+|-------|-------------|
+| 0 | `<S -> .E, $>`, `<E -> .E+T, $/+>`, `<E -> .T, $/+>`, `<T -> .T?i, $/+/?>`, `<T -> .i, $/+/?>` |
+| 1 | `<T -> i., $/+/?>` |
+| 2 | `<S -> E., $>`, `<E -> E.+T, $/+>` |
+| 3 | `<E -> T., $/+>`, `<T -> T.?i, $/+/?>` |
+| 4 | `<E -> E+.T, $/+>`, `<T -> .T?i, $/+/?>`, `<T -> .i, $/+/?>` |
+| 5 | `<E -> E+T., $/+>`, `<T -> T.?i, $/+/?>` |
+| 6 | `<T -> T?.i, $/+/?>` |
+| 7 | `<T -> T?i., $/+/?>` |
+
+## Parsing Table
+
+| State | + | ? | i | E | T | $ |
+|-------|---|---|---|---|---|---|
+| 0 | | | 1 | 2 | 3 | |
+| 1 | Rd | Rd | | | | Rd |
+| 2 | 4 | | | | | accept |
+| 3 | Rb | 6 | | | | Rb |
+| 4 | | | 1 | | 5 | |
+| 5 | Ra | 6 | | | | Ra |
+| 6 | | | 7 | | | |
+| 7 | Rc | Rc | | | | Rc |
+
+## Rightmost Derivations
+
+**x ? y ? z:**
+```
+E => T => T?i => T?i?i => i?i?i
+```
+
+**w + z ? y + x:**
+```
+E => E+T => E+i => E+T+i => E+T?i+i => E+i?i+i => T+i?i+i => i+i?i+i
+```
