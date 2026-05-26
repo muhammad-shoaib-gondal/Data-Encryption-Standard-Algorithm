@@ -1,0 +1,2995 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+2 0 obj
+<< /Length 1934 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(# TikTok SDET Intern \(Global E-Commerce\) Interview Study Guide) Tj
+T*
+() Tj
+T*
+(This document is designed to be the main thing you study before your TikTok Software ) Tj
+T*
+(Development Engineer in Test Intern interview. It is tailored to the role:) Tj
+T*
+() Tj
+T*
+(- Software Development Engineer in Test Intern) Tj
+T*
+(- Global E-Commerce) Tj
+T*
+(- Summer 2026) Tj
+T*
+() Tj
+T*
+(It is based on the role description plus recurring themes in recent public TikTok and ) Tj
+T*
+(ByteDance intern interview reports for:) Tj
+T*
+() Tj
+T*
+(- Software Engineer Intern) Tj
+T*
+(- Software Engineer in Test / SDET) Tj
+T*
+(- Test Development Engineer / QA Automation style roles) Tj
+T*
+() Tj
+T*
+(Because there are fewer exact public reports for this precise intern title, this guide ) Tj
+T*
+(focuses on the highest-probability overlap:) Tj
+T*
+() Tj
+T*
+(- live coding) Tj
+T*
+(- resume deep dives) Tj
+T*
+(- test automation and quality thinking) Tj
+T*
+(- API and backend fundamentals) Tj
+T*
+(- light system design and distributed systems follow-ups) Tj
+T*
+(- e-commerce risk analysis) Tj
+T*
+(- behavioral answers aligned with fast-paced ownership) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## Table of Contents) Tj
+T*
+() Tj
+T*
+(1. What this role likely is) Tj
+T*
+(2. What TikTok seems to evaluate) Tj
+T*
+(3. Likely interview format) Tj
+T*
+(4. How to use this guide in 2 days) Tj
+T*
+(5. Coding and DSA) Tj
+T*
+(6. Testing and SDET fundamentals) Tj
+T*
+(7. API, backend, and CS fundamentals) Tj
+T*
+(8. System design and distributed systems) Tj
+T*
+(9. Global e-commerce domain knowledge) Tj
+T*
+(10. Resume and project deep dive prep) Tj
+T*
+(11. Behavioral and ByteStyle prep) Tj
+T*
+(12. Mock questions and strong answer outlines) Tj
+T*
+(13. Final revision checklist) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 1. What this role likely is) Tj
+T*
+() Tj
+T*
+(This is not a pure manual QA role.) Tj
+T*
+() Tj
+T*
+(It is closer to:) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Length 1629 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(> software engineering for quality, automation, and testability) Tj
+T*
+() Tj
+T*
+(You should expect a mix of:) Tj
+T*
+() Tj
+T*
+(- coding like an SWE intern) Tj
+T*
+(- thinking like a test engineer) Tj
+T*
+(- understanding backend systems and APIs) Tj
+T*
+(- reasoning about scalability and failure cases) Tj
+T*
+(- explaining what and how to automate) Tj
+T*
+() Tj
+T*
+(The best mental model is:) Tj
+T*
+() Tj
+T*
+(> SWE interview + testing/automation interview + lightweight system design follow-ups) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 2. What TikTok seems to evaluate) Tj
+T*
+() Tj
+T*
+(Recent public TikTok and ByteDance interview reports repeatedly point to the following:) Tj
+T*
+() Tj
+T*
+(### A. Resume depth) Tj
+T*
+() Tj
+T*
+(Anything on your resume can be questioned in detail:) Tj
+T*
+() Tj
+T*
+(- what problem did the project solve) Tj
+T*
+(- what exactly did you build) Tj
+T*
+(- what architecture did it use) Tj
+T*
+(- why did you choose that design) Tj
+T*
+(- what were the bottlenecks) Tj
+T*
+(- what broke) Tj
+T*
+(- how did you test it) Tj
+T*
+(- what would you improve) Tj
+T*
+(- how would it scale) Tj
+T*
+() Tj
+T*
+(### B. Coding fluency) Tj
+T*
+() Tj
+T*
+(Interviewers want to see:) Tj
+T*
+() Tj
+T*
+(- clear problem solving) Tj
+T*
+(- clean code) Tj
+T*
+(- edge-case handling) Tj
+T*
+(- time and space complexity awareness) Tj
+T*
+(- calm follow-up handling) Tj
+T*
+() Tj
+T*
+(### C. Testing mindset) Tj
+T*
+() Tj
+T*
+(For an SDET role, they may ask:) Tj
+T*
+() Tj
+T*
+(- how would you test this feature) Tj
+T*
+(- what would you automate first) Tj
+T*
+(- what belongs in unit vs integration vs e2e) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1602 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- how would you design regression coverage) Tj
+T*
+(- how do you debug flaky tests) Tj
+T*
+(- how do you test retries, timeouts, concurrency, and failures) Tj
+T*
+() Tj
+T*
+(### D. Systems thinking) Tj
+T*
+() Tj
+T*
+(Even intern candidates report questions or follow-ups on:) Tj
+T*
+() Tj
+T*
+(- APIs) Tj
+T*
+(- database indexing) Tj
+T*
+(- cache usage) Tj
+T*
+(- service failure recovery) Tj
+T*
+(- concurrency) Tj
+T*
+(- retry safety) Tj
+T*
+(- idempotency) Tj
+T*
+(- high traffic) Tj
+T*
+(- streaming or huge input) Tj
+T*
+() Tj
+T*
+(### E. Communication) Tj
+T*
+() Tj
+T*
+(TikTok interviewers often appear to care a lot about:) Tj
+T*
+() Tj
+T*
+(- thinking out loud) Tj
+T*
+(- explaining trade-offs) Tj
+T*
+(- staying structured under pressure) Tj
+T*
+(- handling follow-up constraints) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 3. Likely interview format) Tj
+T*
+() Tj
+T*
+(The exact process varies, but a realistic round could look like this:) Tj
+T*
+() Tj
+T*
+(### Typical round) Tj
+T*
+() Tj
+T*
+(- 5 min: intro) Tj
+T*
+(- 10 to 15 min: resume or project deep dive) Tj
+T*
+(- 20 to 30 min: coding) Tj
+T*
+(- 5 to 15 min: testing, unit tests, fundamentals, or system follow-up) Tj
+T*
+(- 5 min: your questions) Tj
+T*
+() Tj
+T*
+(### Common variations) Tj
+T*
+() Tj
+T*
+(- coding first, then project) Tj
+T*
+(- one coding question with follow-up constraints) Tj
+T*
+(- code solution plus unit test writing) Tj
+T*
+(- testing scenario instead of formal system design) Tj
+T*
+(- behavioral plus one technical discussion) Tj
+T*
+() Tj
+T*
+(### What to optimize for) Tj
+T*
+() Tj
+T*
+(Do these five things well:) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 1441 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(1. Defend every line on your resume) Tj
+T*
+(2. Think out loud) Tj
+T*
+(3. Explain edge cases before they ask) Tj
+T*
+(4. Connect answers to correctness and reliability) Tj
+T*
+(5. Bring in e-commerce examples naturally) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 4. How to use this guide in 2 days) Tj
+T*
+() Tj
+T*
+(If you only have 2 days, use this study order.) Tj
+T*
+() Tj
+T*
+(### Priority 1: Resume and project prep) Tj
+T*
+() Tj
+T*
+(Prepare:) Tj
+T*
+() Tj
+T*
+(- a 60 to 90 second intro) Tj
+T*
+(- 2 or 3 strong project stories) Tj
+T*
+(- why TikTok) Tj
+T*
+(- why SDET) Tj
+T*
+(- one hard bug story) Tj
+T*
+(- one failure story) Tj
+T*
+(- one collaboration or conflict story) Tj
+T*
+() Tj
+T*
+(### Priority 2: Coding) Tj
+T*
+() Tj
+T*
+(Practice 6 to 8 solid medium problems from:) Tj
+T*
+() Tj
+T*
+(- sliding window) Tj
+T*
+(- BFS and DFS) Tj
+T*
+(- trees) Tj
+T*
+(- intervals) Tj
+T*
+(- hash maps) Tj
+T*
+(- heaps or LRU cache) Tj
+T*
+() Tj
+T*
+(### Priority 3: Testing and SDET) Tj
+T*
+() Tj
+T*
+(Be able to answer:) Tj
+T*
+() Tj
+T*
+(- how would you test checkout) Tj
+T*
+(- how would you test a payment API) Tj
+T*
+(- how would you reduce flaky tests) Tj
+T*
+(- what should be automated first) Tj
+T*
+(- unit vs integration vs end-to-end) Tj
+T*
+() Tj
+T*
+(### Priority 4: System design and distributed systems) Tj
+T*
+() Tj
+T*
+(Study these five in order:) Tj
+T*
+() Tj
+T*
+(1. checkout system) Tj
+T*
+(2. inventory reservation) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 1399 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(3. idempotent order API) Tj
+T*
+(4. notification queue) Tj
+T*
+(5. rate limiter) Tj
+T*
+() Tj
+T*
+(### Priority 5: Fundamentals) Tj
+T*
+() Tj
+T*
+(Review:) Tj
+T*
+() Tj
+T*
+(- process vs thread) Tj
+T*
+(- TCP vs UDP) Tj
+T*
+(- HTTP vs HTTPS) Tj
+T*
+(- GET vs POST) Tj
+T*
+(- database indexes) Tj
+T*
+(- transactions) Tj
+T*
+(- retries and idempotency) Tj
+T*
+(- race conditions) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 5. Coding and DSA) Tj
+T*
+() Tj
+T*
+(### 5.1 What to expect) Tj
+T*
+() Tj
+T*
+(TikTok intern interviews often involve one live coding problem, sometimes with follow-ups ) Tj
+T*
+(that make the problem harder.) Tj
+T*
+() Tj
+T*
+(Common patterns reported in public experiences:) Tj
+T*
+() Tj
+T*
+(- arrays and strings) Tj
+T*
+(- hash maps) Tj
+T*
+(- sliding window) Tj
+T*
+(- BFS and DFS) Tj
+T*
+(- trees and graphs) Tj
+T*
+(- intervals) Tj
+T*
+(- binary search) Tj
+T*
+(- heaps) Tj
+T*
+(- LRU cache) Tj
+T*
+(- string manipulation) Tj
+T*
+() Tj
+T*
+(### 5.2 High-value problems to review) Tj
+T*
+() Tj
+T*
+(If you are short on time, prioritize questions like:) Tj
+T*
+() Tj
+T*
+(- Two Sum) Tj
+T*
+(- Longest Substring Without Repeating Characters) Tj
+T*
+(- Minimum Size Subarray Sum) Tj
+T*
+(- Merge Intervals) Tj
+T*
+(- Number of Islands) Tj
+T*
+(- Binary Tree Level Order Traversal) Tj
+T*
+(- Top K Frequent Elements) Tj
+T*
+(- Kth Largest Element in an Array) Tj
+T*
+(- Valid Parentheses) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 1746 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- Search in Rotated Sorted Array) Tj
+T*
+(- Daily Temperatures) Tj
+T*
+(- LRU Cache) Tj
+T*
+(- Time Based Key-Value Store) Tj
+T*
+() Tj
+T*
+(### 5.3 How to answer a coding question) Tj
+T*
+() Tj
+T*
+(Use this structure every time:) Tj
+T*
+() Tj
+T*
+(1. Restate the problem) Tj
+T*
+(2. Ask 1 or 2 clarifying questions) Tj
+T*
+(3. Mention brute force briefly) Tj
+T*
+(4. Give optimized approach) Tj
+T*
+(5. Explain data structure choice) Tj
+T*
+(6. Write clean code) Tj
+T*
+(7. Walk through an example) Tj
+T*
+(8. State time and space complexity) Tj
+T*
+(9. Mention edge cases) Tj
+T*
+() Tj
+T*
+(### 5.4 Good phrases to use) Tj
+T*
+() Tj
+T*
+(- "A brute-force solution would be O\(n^2\), but we can do better.") Tj
+T*
+(- "I want to confirm whether duplicates are allowed.") Tj
+T*
+(- "I will use a hash map here for O\(1\) average lookup.") Tj
+T*
+(- "Let me walk through a small example.") Tj
+T*
+(- "The main edge cases are empty input, duplicates, and single-element inputs.") Tj
+T*
+() Tj
+T*
+(### 5.5 Common coding follow-ups) Tj
+T*
+() Tj
+T*
+(TikTok interviewers often add constraints like:) Tj
+T*
+() Tj
+T*
+(- what if the input is huge) Tj
+T*
+(- what if data arrives as a stream) Tj
+T*
+(- can space usage be reduced) Tj
+T*
+(- how would you parallelize this) Tj
+T*
+(- how would you test this function) Tj
+T*
+() Tj
+T*
+(### 5.6 Coding mistakes to avoid) Tj
+T*
+() Tj
+T*
+(- coding silently for too long) Tj
+T*
+(- skipping edge cases) Tj
+T*
+(- not discussing complexity) Tj
+T*
+(- writing code you cannot explain) Tj
+T*
+(- panicking when asked to optimize) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 6. Testing and SDET fundamentals) Tj
+T*
+() Tj
+T*
+(This section is especially important for your role.) Tj
+T*
+() Tj
+T*
+(### 6.1 Types of tests) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 1235 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(#### Unit tests) Tj
+T*
+() Tj
+T*
+(Test small isolated functions or classes.) Tj
+T*
+() Tj
+T*
+(Use for:) Tj
+T*
+() Tj
+T*
+(- pricing logic) Tj
+T*
+(- discount calculation) Tj
+T*
+(- input validation) Tj
+T*
+(- business rules) Tj
+T*
+() Tj
+T*
+(#### Integration tests) Tj
+T*
+() Tj
+T*
+(Test how components work together.) Tj
+T*
+() Tj
+T*
+(Use for:) Tj
+T*
+() Tj
+T*
+(- API plus database) Tj
+T*
+(- service plus queue) Tj
+T*
+(- service to service communication) Tj
+T*
+() Tj
+T*
+(#### End-to-end tests) Tj
+T*
+() Tj
+T*
+(Test a full user flow through the system.) Tj
+T*
+() Tj
+T*
+(Use for:) Tj
+T*
+() Tj
+T*
+(- sign in to checkout) Tj
+T*
+(- payment to order confirmation) Tj
+T*
+() Tj
+T*
+(#### Regression tests) Tj
+T*
+() Tj
+T*
+(Protect against breaking existing behavior.) Tj
+T*
+() Tj
+T*
+(#### Smoke tests) Tj
+T*
+() Tj
+T*
+(Fast critical checks that tell you whether the system is basically healthy.) Tj
+T*
+() Tj
+T*
+(#### Performance and load tests) Tj
+T*
+() Tj
+T*
+(Measure latency, throughput, and system behavior under load.) Tj
+T*
+() Tj
+T*
+(#### Security tests) Tj
+T*
+() Tj
+T*
+(Focus on:) Tj
+T*
+() Tj
+T*
+(- auth and permissions) Tj
+T*
+(- sensitive data) Tj
+T*
+(- invalid input) Tj
+T*
+(- abuse scenarios) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 1434 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(### 6.2 The test pyramid) Tj
+T*
+() Tj
+T*
+(Know this concept.) Tj
+T*
+() Tj
+T*
+(Prefer:) Tj
+T*
+() Tj
+T*
+(- many unit tests) Tj
+T*
+(- fewer integration tests) Tj
+T*
+(- even fewer end-to-end tests) Tj
+T*
+() Tj
+T*
+(Reason:) Tj
+T*
+() Tj
+T*
+(- unit tests are faster and more stable) Tj
+T*
+(- end-to-end tests are slower and more fragile) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> I would build most coverage at the unit and API or integration layers, then keep a smaller) Tj
+T*
+( number of high-value end-to-end tests for critical user journeys.) Tj
+T*
+() Tj
+T*
+(### 6.3 What to automate first) Tj
+T*
+() Tj
+T*
+(If asked, say:) Tj
+T*
+() Tj
+T*
+(Automate the most:) Tj
+T*
+() Tj
+T*
+(- business-critical) Tj
+T*
+(- repeatable) Tj
+T*
+(- stable) Tj
+T*
+(- high-signal) Tj
+T*
+(- regression-prone) Tj
+T*
+() Tj
+T*
+(In practice, usually automate:) Tj
+T*
+() Tj
+T*
+(- core backend APIs) Tj
+T*
+(- business logic) Tj
+T*
+(- critical checkout and payment flows) Tj
+T*
+(- smoke tests in CI) Tj
+T*
+() Tj
+T*
+(Avoid saying:) Tj
+T*
+() Tj
+T*
+(> I would automate everything.) Tj
+T*
+() Tj
+T*
+(Better answer:) Tj
+T*
+() Tj
+T*
+(> I would prioritize automation for stable, high-risk, high-frequency flows first, ) Tj
+T*
+(especially API and service-level coverage, because that gives strong signal with less ) Tj
+T*
+(flakiness than broad UI-only automation.) Tj
+T*
+() Tj
+T*
+(### 6.4 Flaky tests) Tj
+T*
+() Tj
+T*
+(Define clearly:) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 1637 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(A flaky test is a test that passes and fails inconsistently without a real product code ) Tj
+T*
+(change.) Tj
+T*
+() Tj
+T*
+(Common causes:) Tj
+T*
+() Tj
+T*
+(- timing issues) Tj
+T*
+(- shared state) Tj
+T*
+(- race conditions) Tj
+T*
+(- test order dependency) Tj
+T*
+(- environment instability) Tj
+T*
+(- external dependency instability) Tj
+T*
+(- poor waits or arbitrary sleeps) Tj
+T*
+() Tj
+T*
+(How to reduce flakiness:) Tj
+T*
+() Tj
+T*
+(- isolate test state) Tj
+T*
+(- use deterministic data) Tj
+T*
+(- remove hidden dependencies) Tj
+T*
+(- avoid fixed sleeps) Tj
+T*
+(- use explicit waits) Tj
+T*
+(- mock unstable external dependencies where appropriate) Tj
+T*
+(- make tests independently runnable) Tj
+T*
+() Tj
+T*
+(Strong line:) Tj
+T*
+() Tj
+T*
+(> Flaky tests are dangerous because they reduce trust in the entire test suite. Once ) Tj
+T*
+(engineers stop trusting failures, quality drops quickly.) Tj
+T*
+() Tj
+T*
+(### 6.5 API testing basics) Tj
+T*
+() Tj
+T*
+(If asked how to test an API, cover:) Tj
+T*
+() Tj
+T*
+(- status code) Tj
+T*
+(- response schema) Tj
+T*
+(- field validation) Tj
+T*
+(- auth and permissions) Tj
+T*
+(- error handling) Tj
+T*
+(- idempotency) Tj
+T*
+(- pagination) Tj
+T*
+(- rate limiting) Tj
+T*
+(- timeout and retry behavior) Tj
+T*
+() Tj
+T*
+(Example for `POST /orders`:) Tj
+T*
+() Tj
+T*
+(- valid request creates one order) Tj
+T*
+(- missing required fields return 400) Tj
+T*
+(- unauthorized request returns 401 or 403) Tj
+T*
+(- duplicate idempotency key does not create a second order) Tj
+T*
+(- out-of-stock request is handled correctly) Tj
+T*
+(- payment timeout produces safe behavior) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 1705 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(### 6.6 Strong framework for "How would you test X?") Tj
+T*
+() Tj
+T*
+(Use this exact structure:) Tj
+T*
+() Tj
+T*
+(1. Clarify scope) Tj
+T*
+(2. Identify critical business risks) Tj
+T*
+(3. Cover functional cases) Tj
+T*
+(4. Cover negative and edge cases) Tj
+T*
+(5. Cover integration and failure cases) Tj
+T*
+(6. Cover performance and security if relevant) Tj
+T*
+(7. Explain automation strategy) Tj
+T*
+(8. Mention observability and production monitoring) Tj
+T*
+() Tj
+T*
+(### 6.7 Testing scenarios to practice) Tj
+T*
+() Tj
+T*
+(Practice answering these:) Tj
+T*
+() Tj
+T*
+(- how would you test a checkout flow) Tj
+T*
+(- how would you test a coupon system) Tj
+T*
+(- how would you test an order placement API) Tj
+T*
+(- how would you test inventory reservation) Tj
+T*
+(- how would you test payment retries and timeouts) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 7. API, backend, and CS fundamentals) Tj
+T*
+() Tj
+T*
+(Recent interview reports often mention broad CS fundamentals, especially for intern roles.) Tj
+T*
+() Tj
+T*
+(### 7.1 Process vs thread) Tj
+T*
+() Tj
+T*
+(#### Process) Tj
+T*
+() Tj
+T*
+(- separate memory space) Tj
+T*
+(- more isolated) Tj
+T*
+(- heavier to create and manage) Tj
+T*
+() Tj
+T*
+(#### Thread) Tj
+T*
+() Tj
+T*
+(- shares process memory) Tj
+T*
+(- lighter weight) Tj
+T*
+(- easier communication) Tj
+T*
+(- requires synchronization on shared state) Tj
+T*
+() Tj
+T*
+(Good answer:) Tj
+T*
+() Tj
+T*
+(> A process is an independent execution unit with its own memory space, while threads are ) Tj
+T*
+(lighter execution units within a process that share memory and therefore need ) Tj
+T*
+(synchronization when accessing shared data.) Tj
+T*
+() Tj
+T*
+(### 7.2 TCP vs UDP) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 1194 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(#### TCP) Tj
+T*
+() Tj
+T*
+(- connection-oriented) Tj
+T*
+(- reliable) Tj
+T*
+(- ordered) Tj
+T*
+(- retransmission supported) Tj
+T*
+() Tj
+T*
+(#### UDP) Tj
+T*
+() Tj
+T*
+(- connectionless) Tj
+T*
+(- faster) Tj
+T*
+(- no delivery guarantee) Tj
+T*
+(- no ordering guarantee) Tj
+T*
+() Tj
+T*
+(Use cases:) Tj
+T*
+() Tj
+T*
+(- TCP: APIs, web traffic, payments) Tj
+T*
+(- UDP: some streaming or real-time use cases where latency matters more than reliability) Tj
+T*
+() Tj
+T*
+(### 7.3 HTTP vs HTTPS) Tj
+T*
+() Tj
+T*
+(HTTPS is HTTP over TLS.) Tj
+T*
+() Tj
+T*
+(It gives:) Tj
+T*
+() Tj
+T*
+(- encryption) Tj
+T*
+(- integrity) Tj
+T*
+(- server authentication) Tj
+T*
+() Tj
+T*
+(### 7.4 GET vs POST) Tj
+T*
+() Tj
+T*
+(#### GET) Tj
+T*
+() Tj
+T*
+(- retrieve data) Tj
+T*
+(- should not modify state) Tj
+T*
+(- often cacheable) Tj
+T*
+() Tj
+T*
+(#### POST) Tj
+T*
+() Tj
+T*
+(- create or submit data) Tj
+T*
+(- may change state) Tj
+T*
+(- not automatically idempotent) Tj
+T*
+() Tj
+T*
+(Also know:) Tj
+T*
+() Tj
+T*
+(- PUT is often used for idempotent updates) Tj
+T*
+(- DELETE removes a resource and is often treated as idempotent) Tj
+T*
+() Tj
+T*
+(### 7.5 HTTP status codes) Tj
+T*
+() Tj
+T*
+(Know these:) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 1467 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- 200 OK) Tj
+T*
+(- 201 Created) Tj
+T*
+(- 400 Bad Request) Tj
+T*
+(- 401 Unauthorized) Tj
+T*
+(- 403 Forbidden) Tj
+T*
+(- 404 Not Found) Tj
+T*
+(- 409 Conflict) Tj
+T*
+(- 429 Too Many Requests) Tj
+T*
+(- 500 Internal Server Error) Tj
+T*
+(- 502 and 503 for upstream or service failures) Tj
+T*
+() Tj
+T*
+(### 7.6 Database indexes) Tj
+T*
+() Tj
+T*
+(An index speeds reads on frequently queried fields, but adds:) Tj
+T*
+() Tj
+T*
+(- storage overhead) Tj
+T*
+(- write overhead) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> Indexes improve read performance, but I would add them selectively because every extra ) Tj
+T*
+(index increases storage and can slow inserts and updates.) Tj
+T*
+() Tj
+T*
+(### 7.7 Transactions) Tj
+T*
+() Tj
+T*
+(A transaction groups operations into one logical unit.) Tj
+T*
+() Tj
+T*
+(Know ACID at a high level:) Tj
+T*
+() Tj
+T*
+(- Atomicity) Tj
+T*
+(- Consistency) Tj
+T*
+(- Isolation) Tj
+T*
+(- Durability) Tj
+T*
+() Tj
+T*
+(This matters in:) Tj
+T*
+() Tj
+T*
+(- order creation) Tj
+T*
+(- payment state changes) Tj
+T*
+(- inventory updates) Tj
+T*
+() Tj
+T*
+(### 7.8 Race condition) Tj
+T*
+() Tj
+T*
+(A race condition happens when the result depends on timing between concurrent operations.) Tj
+T*
+() Tj
+T*
+(E-commerce example:) Tj
+T*
+() Tj
+T*
+(Two users trying to buy the last unit of an item.) Tj
+T*
+() Tj
+T*
+(### 7.9 Caching basics) Tj
+T*
+() Tj
+T*
+(Cache stores frequently used data closer to the caller for faster access.) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 1510 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(Benefits:) Tj
+T*
+() Tj
+T*
+(- reduced latency) Tj
+T*
+(- reduced database load) Tj
+T*
+() Tj
+T*
+(Risks:) Tj
+T*
+() Tj
+T*
+(- stale data) Tj
+T*
+(- invalidation complexity) Tj
+T*
+(- hot key issues) Tj
+T*
+() Tj
+T*
+(### 7.10 Retry and idempotency) Tj
+T*
+() Tj
+T*
+(#### Retry) Tj
+T*
+() Tj
+T*
+(Retry a failed operation, usually after timeout or transient failure.) Tj
+T*
+() Tj
+T*
+(#### Idempotency) Tj
+T*
+() Tj
+T*
+(The same request repeated should not create duplicate side effects.) Tj
+T*
+() Tj
+T*
+(Critical for:) Tj
+T*
+() Tj
+T*
+(- payments) Tj
+T*
+(- orders) Tj
+T*
+(- retries after network issues) Tj
+T*
+() Tj
+T*
+(### 7.11 CAP theorem) Tj
+T*
+() Tj
+T*
+(At a very high level:) Tj
+T*
+() Tj
+T*
+(When a network partition happens in a distributed system, you often have to choose between ) Tj
+T*
+(strong consistency and availability.) Tj
+T*
+() Tj
+T*
+(For interviews, you do not need a deep theorem proof. You need to understand it as a trade-) Tj
+T*
+(off framework.) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 8. System design and distributed systems) Tj
+T*
+() Tj
+T*
+(This is very important even for an SDET intern because TikTok interviews often include:) Tj
+T*
+() Tj
+T*
+(- mini system design) Tj
+T*
+(- scalability follow-ups) Tj
+T*
+(- large input or high-QPS follow-ups) Tj
+T*
+(- distributed systems basics) Tj
+T*
+(- failure handling) Tj
+T*
+() Tj
+T*
+(For your role, your edge is:) Tj
+T*
+() Tj
+T*
+(> not only describing the system, but explaining how you would test it and where it can fail) Tj
+ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 26 0 R >>
+endobj
+28 0 obj
+<< /Length 1224 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(### 8.1 Terms you must know) Tj
+T*
+() Tj
+T*
+(#### Load balancer) Tj
+T*
+() Tj
+T*
+(Distributes incoming traffic across multiple servers.) Tj
+T*
+() Tj
+T*
+(Why it matters:) Tj
+T*
+() Tj
+T*
+(- scale) Tj
+T*
+(- high availability) Tj
+T*
+(- reduced single-node bottlenecks) Tj
+T*
+() Tj
+T*
+(#### Cache) Tj
+T*
+() Tj
+T*
+(Stores hot or frequently accessed data for faster reads.) Tj
+T*
+() Tj
+T*
+(#### Replication) Tj
+T*
+() Tj
+T*
+(Maintains copies of data across nodes.) Tj
+T*
+() Tj
+T*
+(Good for:) Tj
+T*
+() Tj
+T*
+(- availability) Tj
+T*
+(- read scaling) Tj
+T*
+() Tj
+T*
+(#### Sharding) Tj
+T*
+() Tj
+T*
+(Splits data across partitions or databases.) Tj
+T*
+() Tj
+T*
+(Good for:) Tj
+T*
+() Tj
+T*
+(- write scaling) Tj
+T*
+(- storage scaling) Tj
+T*
+() Tj
+T*
+(#### Message queue) Tj
+T*
+() Tj
+T*
+(Enables asynchronous communication between services.) Tj
+T*
+() Tj
+T*
+(Examples:) Tj
+T*
+() Tj
+T*
+(- order created event) Tj
+T*
+(- notification sending) Tj
+T*
+(- inventory update processing) Tj
+T*
+() Tj
+T*
+(#### Backoff) Tj
+T*
+() Tj
+T*
+(Increasing delay between retries to avoid hammering failing services.) Tj
+T*
+() Tj
+T*
+(#### Dead-letter queue) Tj
+T*
+() Tj
+T*
+(Holds messages that repeatedly fail processing.) Tj
+ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 28 0 R >>
+endobj
+30 0 obj
+<< /Length 1525 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(#### Circuit breaker) Tj
+T*
+() Tj
+T*
+(Temporarily stops calls to a failing service to prevent cascading failure.) Tj
+T*
+() Tj
+T*
+(#### Eventual consistency) Tj
+T*
+() Tj
+T*
+(Different parts of the system may not update instantly, but converge over time.) Tj
+T*
+() Tj
+T*
+(### 8.2 Answer framework for any system design question) Tj
+T*
+() Tj
+T*
+(Use this structure:) Tj
+T*
+() Tj
+T*
+(1. Clarify requirements) Tj
+T*
+(2. Identify core entities) Tj
+T*
+(3. Propose major components) Tj
+T*
+(4. Walk through the main flow) Tj
+T*
+(5. Discuss failure cases and scale) Tj
+T*
+(6. Add observability and testability) Tj
+T*
+() Tj
+T*
+(### 8.3 The five highest-value design questions for your role) Tj
+T*
+() Tj
+T*
+(#### 1. Design an e-commerce checkout system) Tj
+T*
+() Tj
+T*
+(Core components:) Tj
+T*
+() Tj
+T*
+(- cart service) Tj
+T*
+(- pricing and coupon service) Tj
+T*
+(- inventory service) Tj
+T*
+(- payment service) Tj
+T*
+(- order service) Tj
+T*
+(- notification service) Tj
+T*
+(- databases) Tj
+T*
+(- queue) Tj
+T*
+() Tj
+T*
+(Critical ideas:) Tj
+T*
+() Tj
+T*
+(- validate cart and price) Tj
+T*
+(- reserve inventory) Tj
+T*
+(- process payment) Tj
+T*
+(- create order) Tj
+T*
+(- emit event) Tj
+T*
+(- return confirmation) Tj
+T*
+() Tj
+T*
+(Failure scenarios:) Tj
+T*
+() Tj
+T*
+(- payment succeeds but order creation fails) Tj
+T*
+(- order created but notification fails) Tj
+T*
+(- retry creates duplicate order) Tj
+T*
+(- inventory reserved but payment fails) Tj
+T*
+(- stale cart pricing) Tj
+T*
+(- coupon mismatch) Tj
+ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 30 0 R >>
+endobj
+32 0 obj
+<< /Length 1375 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+T*
+(- happy path) Tj
+T*
+(- duplicate submit) Tj
+T*
+(- payment timeout) Tj
+T*
+(- inventory race) Tj
+T*
+(- stale pricing) Tj
+T*
+(- rollback and recovery) Tj
+T*
+(- peak-load performance) Tj
+T*
+() Tj
+T*
+(#### 2. Design an inventory reservation system) Tj
+T*
+() Tj
+T*
+(Goal:) Tj
+T*
+() Tj
+T*
+(Prevent overselling while allowing checkout flow to proceed safely.) Tj
+T*
+() Tj
+T*
+(Key ideas:) Tj
+T*
+() Tj
+T*
+(- temporary reservation) Tj
+T*
+(- reservation TTL) Tj
+T*
+(- release on payment failure or timeout) Tj
+T*
+(- atomic or transactional stock updates) Tj
+T*
+() Tj
+T*
+(Failure scenarios:) Tj
+T*
+() Tj
+T*
+(- reservation never released) Tj
+T*
+(- duplicate reserve requests) Tj
+T*
+(- payment completes after reservation expiry) Tj
+T*
+(- service crash during reservation) Tj
+T*
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+T*
+(- two users buying the last item) Tj
+T*
+(- expired reservation) Tj
+T*
+(- payment fail after reserve) Tj
+T*
+(- duplicate reservation requests) Tj
+T*
+(- race conditions under load) Tj
+T*
+() Tj
+T*
+(#### 3. Design a retry-safe order API) Tj
+T*
+() Tj
+T*
+(Key concept:) Tj
+T*
+() Tj
+T*
+(Idempotency key.) Tj
+T*
+() Tj
+T*
+(Why:) Tj
+T*
+() Tj
+T*
+(If the client times out and retries, the same request should not create a second order or ) Tj
+T*
+(second charge.) Tj
+T*
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 32 0 R >>
+endobj
+34 0 obj
+<< /Length 1284 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- same request sent multiple times) Tj
+T*
+(- client retries after timeout) Tj
+T*
+(- payment processed but response lost) Tj
+T*
+(- duplicate webhook or callback handling) Tj
+T*
+() Tj
+T*
+(#### 4. Design a coupon or promotion service) Tj
+T*
+() Tj
+T*
+(Key ideas:) Tj
+T*
+() Tj
+T*
+(- coupon eligibility) Tj
+T*
+(- stacking rules) Tj
+T*
+(- product and category restrictions) Tj
+T*
+(- user-specific usage) Tj
+T*
+(- expiration) Tj
+T*
+(- abuse prevention) Tj
+T*
+() Tj
+T*
+(Risks:) Tj
+T*
+() Tj
+T*
+(- incorrect discount) Tj
+T*
+(- invalid coupon accepted) Tj
+T*
+(- valid coupon rejected) Tj
+T*
+(- rounding bugs) Tj
+T*
+(- timezone bugs) Tj
+T*
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+T*
+(- boundary cases) Tj
+T*
+(- expired coupon) Tj
+T*
+(- stacking conflicts) Tj
+T*
+(- per-user limits) Tj
+T*
+(- category restrictions) Tj
+T*
+(- multiple currencies) Tj
+T*
+() Tj
+T*
+(#### 5. Design a notification or async event system) Tj
+T*
+() Tj
+T*
+(Example use:) Tj
+T*
+() Tj
+T*
+(Send confirmation after order is placed.) Tj
+T*
+() Tj
+T*
+(Key ideas:) Tj
+T*
+() Tj
+T*
+(- producer) Tj
+T*
+(- queue) Tj
+T*
+(- consumer workers) Tj
+T*
+(- retries) Tj
+T*
+(- DLQ) Tj
+T*
+(- idempotent handling) Tj
+T*
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+T*
+(- worker crash) Tj
+T*
+(- duplicate message delivery) Tj
+ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 34 0 R >>
+endobj
+36 0 obj
+<< /Length 1503 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- poison message) Tj
+T*
+(- retry backoff behavior) Tj
+T*
+() Tj
+T*
+(### 8.4 Rate limiter) Tj
+T*
+() Tj
+T*
+(This is a classic mini system design question.) Tj
+T*
+() Tj
+T*
+(Common models:) Tj
+T*
+() Tj
+T*
+(- fixed window) Tj
+T*
+(- sliding window) Tj
+T*
+(- token bucket) Tj
+T*
+(- leaky bucket) Tj
+T*
+() Tj
+T*
+(Typical implementation notes:) Tj
+T*
+() Tj
+T*
+(- per-user or per-IP counters) Tj
+T*
+(- Redis with TTL) Tj
+T*
+(- distributed consistency trade-offs) Tj
+T*
+() Tj
+T*
+(Testing angle:) Tj
+T*
+() Tj
+T*
+(- boundary traffic) Tj
+T*
+(- bursts) Tj
+T*
+(- distributed instances) Tj
+T*
+(- incorrect reset behavior) Tj
+T*
+() Tj
+T*
+(### 8.5 TinyURL) Tj
+T*
+() Tj
+T*
+(Useful classic question to understand:) Tj
+T*
+() Tj
+T*
+(- hashing) Tj
+T*
+(- unique IDs) Tj
+T*
+(- collision handling) Tj
+T*
+(- read-heavy traffic) Tj
+T*
+(- caching) Tj
+T*
+() Tj
+T*
+(### 8.6 Strong system design phrases) Tj
+T*
+() Tj
+T*
+(- "I would start by clarifying scale and consistency needs.") Tj
+T*
+(- "This part is read-heavy, so caching may help.") Tj
+T*
+(- "I would use idempotency here to make retries safe.") Tj
+T*
+(- "An async queue decouples downstream processing from the user-facing request path.") Tj
+T*
+(- "For an SDET role, I would also think about observability, failure injection, and ) Tj
+T*
+(concurrency testing.") Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 9. Global e-commerce domain knowledge) Tj
+T*
+() Tj
+T*
+(This part can give you a real edge because your team is Global E-Commerce.) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+37 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 36 0 R >>
+endobj
+38 0 obj
+<< /Length 1414 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(### 9.1 Core e-commerce flows) Tj
+T*
+() Tj
+T*
+(Know the flow of:) Tj
+T*
+() Tj
+T*
+(- browse products) Tj
+T*
+(- add to cart) Tj
+T*
+(- apply coupon) Tj
+T*
+(- calculate totals) Tj
+T*
+(- checkout) Tj
+T*
+(- payment) Tj
+T*
+(- order creation) Tj
+T*
+(- inventory update) Tj
+T*
+(- fulfillment) Tj
+T*
+(- cancellation) Tj
+T*
+(- refund and return) Tj
+T*
+() Tj
+T*
+(### 9.2 High-risk e-commerce failures) Tj
+T*
+() Tj
+T*
+(These are strong talking points:) Tj
+T*
+() Tj
+T*
+(- duplicate order) Tj
+T*
+(- duplicate charge) Tj
+T*
+(- payment succeeded but order failed) Tj
+T*
+(- oversold inventory) Tj
+T*
+(- stale price in cart) Tj
+T*
+(- wrong discount application) Tj
+T*
+(- invalid coupon accepted) Tj
+T*
+(- valid coupon rejected) Tj
+T*
+(- tax or shipping miscalculation) Tj
+T*
+(- currency mismatch) Tj
+T*
+(- timezone bug on promotion expiry) Tj
+T*
+(- refund inconsistency) Tj
+T*
+(- network retry duplicates) Tj
+T*
+() Tj
+T*
+(### 9.3 Good test ideas for e-commerce) Tj
+T*
+() Tj
+T*
+(#### Checkout) Tj
+T*
+() Tj
+T*
+(- guest user vs logged-in user) Tj
+T*
+(- single item vs multiple items) Tj
+T*
+(- coupon and no coupon) Tj
+T*
+(- address validation) Tj
+T*
+(- item goes out of stock during checkout) Tj
+T*
+(- duplicate submit) Tj
+T*
+() Tj
+T*
+(#### Payment) Tj
+T*
+() Tj
+T*
+(- success and failure) Tj
+T*
+(- timeout) Tj
+T*
+(- declined payment) Tj
+T*
+(- third-party callback duplication) Tj
+T*
+(- retry safety) Tj
+ET
+endstream
+endobj
+39 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 38 0 R >>
+endobj
+40 0 obj
+<< /Length 1382 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(#### Inventory) Tj
+T*
+() Tj
+T*
+(- last-item contention) Tj
+T*
+(- reservation expiry) Tj
+T*
+(- cancellation restock) Tj
+T*
+(- stock correction) Tj
+T*
+() Tj
+T*
+(#### Promotions) Tj
+T*
+() Tj
+T*
+(- first-time user coupon) Tj
+T*
+(- minimum cart value) Tj
+T*
+(- category restrictions) Tj
+T*
+(- per-user limits) Tj
+T*
+(- stacking rules) Tj
+T*
+(- timezone and currency handling) Tj
+T*
+() Tj
+T*
+(#### Global concerns) Tj
+T*
+() Tj
+T*
+(- currency conversion) Tj
+T*
+(- locale and formatting) Tj
+T*
+(- timezone) Tj
+T*
+(- region restrictions) Tj
+T*
+(- tax differences) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 10. Resume and project deep dive prep) Tj
+T*
+() Tj
+T*
+(This may matter as much as coding.) Tj
+T*
+() Tj
+T*
+(### 10.1 For each project, prepare answers to:) Tj
+T*
+() Tj
+T*
+(- What problem did it solve?) Tj
+T*
+(- What was the architecture?) Tj
+T*
+(- What exactly did you build?) Tj
+T*
+(- What technologies did you use?) Tj
+T*
+(- Why those technologies?) Tj
+T*
+(- What was the hardest bug?) Tj
+T*
+(- How did you test it?) Tj
+T*
+(- What were the bottlenecks?) Tj
+T*
+(- What metrics improved?) Tj
+T*
+(- What would you improve now?) Tj
+T*
+(- How would you scale it?) Tj
+T*
+() Tj
+T*
+(### 10.2 Strong project topics to prepare) Tj
+T*
+() Tj
+T*
+(If your project includes:) Tj
+T*
+() Tj
+T*
+(#### API or backend work) Tj
+T*
+() Tj
+T*
+(Be ready to discuss:) Tj
+ET
+endstream
+endobj
+41 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 40 0 R >>
+endobj
+42 0 obj
+<< /Length 1210 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(- endpoints) Tj
+T*
+(- auth) Tj
+T*
+(- validation) Tj
+T*
+(- database writes) Tj
+T*
+(- error handling) Tj
+T*
+(- retry behavior) Tj
+T*
+(- testing strategy) Tj
+T*
+() Tj
+T*
+(#### Automation or testing) Tj
+T*
+() Tj
+T*
+(Be ready to discuss:) Tj
+T*
+() Tj
+T*
+(- framework design) Tj
+T*
+(- test organization) Tj
+T*
+(- CI integration) Tj
+T*
+(- mocking) Tj
+T*
+(- flaky tests) Tj
+T*
+(- what you chose not to automate) Tj
+T*
+() Tj
+T*
+(#### Performance) Tj
+T*
+() Tj
+T*
+(Be ready to discuss:) Tj
+T*
+() Tj
+T*
+(- what was slow) Tj
+T*
+(- how you measured it) Tj
+T*
+(- what tools or logs you used) Tj
+T*
+(- what changed after the fix) Tj
+T*
+() Tj
+T*
+(### 10.3 Great project answer structure) Tj
+T*
+() Tj
+T*
+(Use this:) Tj
+T*
+() Tj
+T*
+(1. Problem) Tj
+T*
+(2. Your role) Tj
+T*
+(3. Design) Tj
+T*
+(4. Hard part) Tj
+T*
+(5. Testing and validation) Tj
+T*
+(6. Result) Tj
+T*
+(7. Improvement if given more time) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 11. Behavioral and ByteStyle prep) Tj
+T*
+() Tj
+T*
+(You do not need to memorize corporate slogans, but your stories should reflect:) Tj
+T*
+() Tj
+T*
+(- ownership) Tj
+T*
+(- speed) Tj
+T*
+(- clarity) Tj
+T*
+(- quick learning) Tj
+T*
+(- high standards) Tj
+ET
+endstream
+endobj
+43 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 42 0 R >>
+endobj
+44 0 obj
+<< /Length 1562 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- collaboration) Tj
+T*
+(- comfort with ambiguity) Tj
+T*
+(- data-driven decisions) Tj
+T*
+() Tj
+T*
+(### 11.1 Common behavioral questions) Tj
+T*
+() Tj
+T*
+(- Tell me about yourself) Tj
+T*
+(- Why TikTok?) Tj
+T*
+(- Why this role?) Tj
+T*
+(- Tell me about a project you are proud of) Tj
+T*
+(- Tell me about a failure) Tj
+T*
+(- Tell me about a difficult bug) Tj
+T*
+(- Tell me about a time you learned something quickly) Tj
+T*
+(- Tell me about a conflict with a teammate) Tj
+T*
+(- How do you prioritize when things move fast?) Tj
+T*
+(- How do you handle ambiguity?) Tj
+T*
+() Tj
+T*
+(### 11.2 Use STAR) Tj
+T*
+() Tj
+T*
+(Keep answers structured:) Tj
+T*
+() Tj
+T*
+(- Situation) Tj
+T*
+(- Task) Tj
+T*
+(- Action) Tj
+T*
+(- Result) Tj
+T*
+() Tj
+T*
+(Best practice:) Tj
+T*
+() Tj
+T*
+(- keep to about 2 to 3 minutes) Tj
+T*
+(- include one measurable outcome if possible) Tj
+T*
+(- show what you personally drove) Tj
+T*
+() Tj
+T*
+(### 11.3 Stories to prepare) Tj
+T*
+() Tj
+T*
+(Prepare these six:) Tj
+T*
+() Tj
+T*
+(1. Project you are proud of) Tj
+T*
+(2. Hard bug and debugging process) Tj
+T*
+(3. Fast learning under pressure) Tj
+T*
+(4. Failure or mistake) Tj
+T*
+(5. Conflict or disagreement) Tj
+T*
+(6. Raising quality or going beyond minimum expectations) Tj
+T*
+() Tj
+T*
+(### 11.4 "Why TikTok?" answer themes) Tj
+T*
+() Tj
+T*
+(Good themes:) Tj
+T*
+() Tj
+T*
+(- global scale) Tj
+T*
+(- technically challenging systems) Tj
+T*
+(- fast iteration) Tj
+T*
+(- real impact on user experience and business quality) Tj
+T*
+(- interest in automation and reliability at scale) Tj
+ET
+endstream
+endobj
+45 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 44 0 R >>
+endobj
+46 0 obj
+<< /Length 2147 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- e-commerce quality has clear product and business value) Tj
+T*
+() Tj
+T*
+(Avoid generic answers like:) Tj
+T*
+() Tj
+T*
+(- "I use TikTok a lot.") Tj
+T*
+(- "It is a famous company.") Tj
+T*
+() Tj
+T*
+(### 11.5 "Why SDET?" answer themes) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> I like software engineering, but I am especially interested in correctness, reliability, ) Tj
+T*
+(and automation. SDET lets me apply engineering skills to build test frameworks, tools, and ) Tj
+T*
+(high-signal coverage that improve product quality at scale. I enjoy not only building ) Tj
+T*
+(systems, but making them testable and dependable.) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 12. Mock questions and strong answer outlines) Tj
+T*
+() Tj
+T*
+(### 12.1 Testing question: How would you test a checkout flow?) Tj
+T*
+() Tj
+T*
+(Strong structure:) Tj
+T*
+() Tj
+T*
+(1. Clarify scope: API only, web flow, payment provider assumptions) Tj
+T*
+(2. Identify business risks: wrong pricing, duplicate charge, oversell, timeout) Tj
+T*
+(3. Cover:) Tj
+T*
+(   - functional) Tj
+T*
+(   - negative) Tj
+T*
+(   - edge cases) Tj
+T*
+(   - integration) Tj
+T*
+(   - concurrency) Tj
+T*
+(   - performance) Tj
+T*
+(4. Explain automation strategy) Tj
+T*
+(5. Mention logs, metrics, and alerts) Tj
+T*
+() Tj
+T*
+(### 12.2 Testing question: What would you automate first?) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> I would start with high-risk, stable, repeated flows that give strong regression value, ) Tj
+T*
+(especially API coverage for core business logic and a small number of smoke end-to-end flows) Tj
+T*
+( in CI. I would avoid over-investing in low-value, highly volatile UI-only tests early.) Tj
+T*
+() Tj
+T*
+(### 12.3 Testing question: How do you reduce flaky tests?) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> I would first categorize the flakes by root cause, such as timing, shared state, data ) Tj
+T*
+(dependency, or environment instability. Then I would remove fixed sleeps, isolate state, use) Tj
+T*
+( deterministic data, stabilize external dependencies, and track flake rate over time so the ) Tj
+T*
+(suite becomes trusted again.) Tj
+ET
+endstream
+endobj
+47 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 46 0 R >>
+endobj
+48 0 obj
+<< /Length 2062 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+() Tj
+T*
+(### 12.4 Design question: What if two users try to buy the last item?) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> That is a concurrency problem and can create overselling if inventory updates are not ) Tj
+T*
+(safe. I would use a reservation or atomic stock update approach, likely with transaction or ) Tj
+T*
+(version checks, and release reservations on timeout or payment failure. From a test ) Tj
+T*
+(perspective I would explicitly run concurrency and race-condition tests on the last-item ) Tj
+T*
+(scenario.) Tj
+T*
+() Tj
+T*
+(### 12.5 Design question: What if payment succeeds but order creation fails?) Tj
+T*
+() Tj
+T*
+(Strong answer:) Tj
+T*
+() Tj
+T*
+(> That is a partial failure across service boundaries. I would persist enough state for ) Tj
+T*
+(recovery, make retries idempotent, and use either event-driven reconciliation or ) Tj
+T*
+(compensating logic so the system can resolve mismatches safely. I would test by injecting ) Tj
+T*
+(failure between the payment success and order persistence steps.) Tj
+T*
+() Tj
+T*
+(### 12.6 Behavioral question: Tell me about a difficult bug) Tj
+T*
+() Tj
+T*
+(Use this structure:) Tj
+T*
+() Tj
+T*
+(- describe the symptom) Tj
+T*
+(- explain how you narrowed down the issue) Tj
+T*
+(- mention tools used: logs, metrics, local repro, test) Tj
+T*
+(- explain fix) Tj
+T*
+(- explain what you changed to prevent regression) Tj
+T*
+() Tj
+T*
+(### 12.7 Rapid-fire technical questions) Tj
+T*
+() Tj
+T*
+(Be able to answer these quickly:) Tj
+T*
+() Tj
+T*
+(- difference between process and thread) Tj
+T*
+(- difference between TCP and UDP) Tj
+T*
+(- what is idempotency) Tj
+T*
+(- what is a flaky test) Tj
+T*
+(- what is a race condition) Tj
+T*
+(- why use an index) Tj
+T*
+(- why avoid too many end-to-end tests) Tj
+T*
+(- what is the test pyramid) Tj
+T*
+(- why use a queue) Tj
+T*
+(- what does eventual consistency mean) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## 13. Final revision checklist) Tj
+T*
+() Tj
+T*
+(### Coding) Tj
+T*
+() Tj
+T*
+(- [ ] I can solve medium DSA questions while speaking clearly) Tj
+ET
+endstream
+endobj
+49 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 48 0 R >>
+endobj
+50 0 obj
+<< /Length 1719 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(- [ ] I can explain complexity) Tj
+T*
+(- [ ] I can identify edge cases before being asked) Tj
+T*
+(- [ ] I can handle follow-up constraints calmly) Tj
+T*
+() Tj
+T*
+(### Resume) Tj
+T*
+() Tj
+T*
+(- [ ] I can deeply explain 2 or 3 projects) Tj
+T*
+(- [ ] I know my exact contribution) Tj
+T*
+(- [ ] I can explain architecture and trade-offs) Tj
+T*
+(- [ ] I can explain how I tested and validated the work) Tj
+T*
+() Tj
+T*
+(### Testing and SDET) Tj
+T*
+() Tj
+T*
+(- [ ] I can explain unit vs integration vs e2e) Tj
+T*
+(- [ ] I can design tests for checkout, payment, and order APIs) Tj
+T*
+(- [ ] I can talk about flaky tests and CI strategy) Tj
+T*
+(- [ ] I can explain what to automate first and why) Tj
+T*
+() Tj
+T*
+(### System design and distributed systems) Tj
+T*
+() Tj
+T*
+(- [ ] I understand caching, queues, retries, and idempotency) Tj
+T*
+(- [ ] I can outline checkout and inventory reservation systems) Tj
+T*
+(- [ ] I understand race conditions and safe retry behavior) Tj
+T*
+(- [ ] I can discuss failures and recovery at a high level) Tj
+T*
+() Tj
+T*
+(### Fundamentals) Tj
+T*
+() Tj
+T*
+(- [ ] process vs thread) Tj
+T*
+(- [ ] TCP vs UDP) Tj
+T*
+(- [ ] HTTP vs HTTPS) Tj
+T*
+(- [ ] GET vs POST) Tj
+T*
+(- [ ] status codes) Tj
+T*
+(- [ ] indexes) Tj
+T*
+(- [ ] transactions) Tj
+T*
+(- [ ] race conditions) Tj
+T*
+() Tj
+T*
+(### Behavioral) Tj
+T*
+() Tj
+T*
+(- [ ] Why TikTok) Tj
+T*
+(- [ ] Why SDET) Tj
+T*
+(- [ ] Project I am proud of) Tj
+T*
+(- [ ] Failure story) Tj
+T*
+(- [ ] Hard bug story) Tj
+T*
+(- [ ] Conflict story) Tj
+T*
+(- [ ] Fast-learning story) Tj
+T*
+() Tj
+T*
+(---) Tj
+T*
+() Tj
+T*
+(## Final takeaway) Tj
+T*
+() Tj
+T*
+(If you remember one sentence from this whole guide, make it this:) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+51 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 50 0 R >>
+endobj
+52 0 obj
+<< /Length 378 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+14 TL
+(> For this interview, be ready to code like an SWE intern, reason about risk like an SDET, ) Tj
+T*
+(and discuss failure and scale like a systems-minded engineer.) Tj
+T*
+() Tj
+T*
+(Good luck. If you study this document well and practice speaking the answers out loud, you ) Tj
+T*
+(will be covering the highest-probability topics for the role.) Tj
+ET
+endstream
+endobj
+53 0 obj
+<< /Type /Page /Parent 54 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 52 0 R >>
+endobj
+54 0 obj
+<< /Type /Pages /Kids [ 3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R 43 0 R 45 0 R 47 0 R 49 0 R 51 0 R 53 0 R ] /Count 26 >>
+endobj
+55 0 obj
+<< /Type /Catalog /Pages 54 0 R >>
+endobj
+xref
+0 56
+0000000000 65535 f 
+0000000009 00000 n 
+0000000077 00000 n 
+0000002062 00000 n 
+0000002189 00000 n 
+0000003869 00000 n 
+0000003996 00000 n 
+0000005649 00000 n 
+0000005776 00000 n 
+0000007268 00000 n 
+0000007395 00000 n 
+0000008846 00000 n 
+0000008975 00000 n 
+0000010773 00000 n 
+0000010902 00000 n 
+0000012189 00000 n 
+0000012318 00000 n 
+0000013804 00000 n 
+0000013933 00000 n 
+0000015622 00000 n 
+0000015751 00000 n 
+0000017508 00000 n 
+0000017637 00000 n 
+0000018883 00000 n 
+0000019012 00000 n 
+0000020531 00000 n 
+0000020660 00000 n 
+0000022222 00000 n 
+0000022351 00000 n 
+0000023627 00000 n 
+0000023756 00000 n 
+0000025333 00000 n 
+0000025462 00000 n 
+0000026889 00000 n 
+0000027018 00000 n 
+0000028354 00000 n 
+0000028483 00000 n 
+0000030038 00000 n 
+0000030167 00000 n 
+0000031633 00000 n 
+0000031762 00000 n 
+0000033196 00000 n 
+0000033325 00000 n 
+0000034587 00000 n 
+0000034716 00000 n 
+0000036330 00000 n 
+0000036459 00000 n 
+0000038658 00000 n 
+0000038787 00000 n 
+0000040901 00000 n 
+0000041030 00000 n 
+0000042801 00000 n 
+0000042930 00000 n 
+0000043359 00000 n 
+0000043488 00000 n 
+0000043721 00000 n 
+trailer
+<< /Size 56 /Root 55 0 R >>
+startxref
+43772
+%%EOF
